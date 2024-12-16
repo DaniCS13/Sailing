@@ -2,10 +2,24 @@ package cat.institutmarianao.sailing.ws.model;
 
 import java.io.Serializable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+/* JPA */
+@Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING) // Valor para diferenciar si es
+																						// cliente o admin
 
 /* Lombok */
 @Data
@@ -28,15 +42,19 @@ public abstract class User implements Serializable {
 
 	/* Validation */
 	/* JPA */
+	@Id
+	@Column(name = "username", length = MAX_USERNAME, nullable = false, unique = true)
 	/* Lombok */
 	@EqualsAndHashCode.Include
 	protected String username;
 
 	/* Validation */
 	/* JPA */
+	@Column(name = "password")
 	protected String password;
 
 	/* Validation */
 	/* JPA */
+	@Column(name = "role", nullable = false)
 	protected Role role;
 }
