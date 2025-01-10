@@ -18,8 +18,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING) // Valor para diferenciar si es
-																						// cliente o admin
+@DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING) // Valor para diferenciar si es
+																					// cliente o admin
 
 /* Lombok */
 @Data

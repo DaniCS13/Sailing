@@ -30,7 +30,7 @@ public class Client extends User implements Serializable {
 	/* Validation */
 	@NotBlank(groups = OnUserCreate.class)
 	/* JPA */
-	@Column(name = "username", length = MAX_FULL_NAME, nullable = false)
+	@Column(name = "full_name", length = MAX_FULL_NAME, nullable = false)
 	protected String fullName;
 
 	/* Validation */
