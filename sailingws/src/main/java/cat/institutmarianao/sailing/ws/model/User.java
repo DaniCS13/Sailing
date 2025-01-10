@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -55,6 +57,7 @@ public abstract class User implements Serializable {
 
 	/* Validation */
 	/* JPA */
-	@Column(name = "role", nullable = false)
+	@Enumerated(EnumType.STRING)
+	@Column(name = "role", insertable = false, updatable = false, nullable = false)
 	protected Role role;
 }
