@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /* JPA annotations */
-/* JPA annotations */
 @Entity
 @Table(name = "trips")
 /* Lombok */

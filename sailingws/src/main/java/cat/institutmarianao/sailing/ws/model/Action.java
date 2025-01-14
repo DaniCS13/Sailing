@@ -3,6 +3,14 @@ package cat.institutmarianao.sailing.ws.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,6 +24,8 @@ import lombok.RequiredArgsConstructor;
  * Maps different JPA objects depDONEing on his type attribute (Opening,
  * Assignment, Intervention or Close)
  */
+@Entity
+@Table(name = "actions")
 /* Lombok */
 @Data
 @RequiredArgsConstructor
@@ -37,6 +47,8 @@ public abstract class Action implements Serializable {
 
 	/* Validation */
 	/* JPA */
+	@Id
+	@Column(name = "id", nullable = false, unique = true)
 	/* Lombok */
 	@EqualsAndHashCode.Include
 	protected Long id;
@@ -45,19 +57,27 @@ public abstract class Action implements Serializable {
 	/* Lombok */
 	@NonNull
 	/* JPA */
+	@Enumerated(EnumType.STRING) // Guarda el tipo como un string en la base de datos
+	@Column(name = "type", nullable = false, length = 31)
 	protected Type type;
 
 	/* Validation */
 	/* JPA */
+	@ManyToOne
+	@JoinColumn(name = "performer_username", nullable = false)
 	protected User performer;
 
 	/* JPA */
+	@Column(name = "date", nullable = false)
 	protected Date date = new Date();
 
 	/* Validation */
 	/* JPA */
+	@ManyToOne
+	@JoinColumn(name = "trip_id", nullable = false)
 	/* JSON */
 	protected Trip trip;
 
+	@Column(name = "comments", length = 255)
 	private String comments;
 }
