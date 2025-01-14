@@ -63,6 +63,7 @@ public class Trip implements Serializable {
 	private Client client;
 
 	/* JPA */
+	/* JPA */
 	@Column(name = "places", nullable = false)
 	private int places;
 
