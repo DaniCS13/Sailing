@@ -6,6 +6,13 @@ import java.util.List;
 
 import org.hibernate.annotations.Formula;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -14,6 +21,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /* JPA annotations */
+@Entity
+@Table(name = "trips")
 /* Lombok */
 @Data
 @NoArgsConstructor
@@ -35,22 +44,32 @@ public class Trip implements Serializable {
 
 	/* Validation */
 	/* JPA */
+	@Id
+	@Column(name = "id", nullable = false, unique = true)
 	/* Lombok */
 	@EqualsAndHashCode.Include
 	/* JSON */
 	private Long id;
 
 	/* JPA */
+	@ManyToOne // Relación con TripType (muchos a uno)
+	@JoinColumn(name = "type_id", nullable = false)
 	private TripType type;
 
 	/* Validation */
 	/* JPA */
+	@ManyToOne // Relación con Client (muchos a uno)
+	@JoinColumn(name = "client_username", nullable = false)
 	private Client client;
 
+	/* JPA */
+	@Column(name = "places", nullable = false)
 	private int places;
 
 	/* Validation */
 	/* JPA */
+	@OneToMany // Relación con Action (uno a muchos)
+	@JoinColumn(name = "trip_id")
 	private List<@Valid Action> tracking;
 
 	/* JPA */
@@ -66,8 +85,10 @@ public class Trip implements Serializable {
 
 	/* Validation */
 	/* JPA */
+	@Column(name = "date", nullable = false)
 	private Date date;
 
 	/* JPA */
+	@Column(name = "departure", nullable = false)
 	private Date departure;
 }
