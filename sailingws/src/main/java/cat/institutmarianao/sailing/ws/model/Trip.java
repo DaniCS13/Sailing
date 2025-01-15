@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -87,9 +89,11 @@ public class Trip implements Serializable {
 	/* Validation */
 	/* JPA */
 	@Column(name = "date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	/* JPA */
 	@Column(name = "departure", nullable = false)
+	@Temporal(TemporalType.TIME)
 	private Date departure;
 }
