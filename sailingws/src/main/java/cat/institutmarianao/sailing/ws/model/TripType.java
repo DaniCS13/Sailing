@@ -53,6 +53,7 @@ public class TripType implements Serializable {
 
 	/* Validation */
 	/* JPA */
+	/* JPA */
 	@Enumerated(EnumType.STRING)
 	@Column(name = "category", nullable = false)
 	private Category category;
