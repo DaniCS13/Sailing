@@ -13,6 +13,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -43,6 +45,7 @@ public class Trip implements Serializable {
 	}
 
 	/* Validation */
+
 	/* JPA */
 	@Id
 	@Column(name = "id", nullable = false, unique = true)
@@ -68,12 +71,14 @@ public class Trip implements Serializable {
 	private int places;
 
 	/* Validation */
+
 	/* JPA */
 	@OneToMany // Relación con Action (uno a muchos)
 	@JoinColumn(name = "trip_id")
 	private List<@Valid Action> tracking;
 
 	/* JPA */
+
 	/* Hibernate */
 	@Formula("(SELECT CASE a.type WHEN '" + Action.BOOKING + "' THEN '" + Trip.RESERVED + "' WHEN '"
 			+ Action.RESCHEDULING + "' THEN '" + Trip.RESCHEDULED + "' WHEN '" + Action.CANCELLATION + "' THEN '"
@@ -85,11 +90,14 @@ public class Trip implements Serializable {
 	private Status status;
 
 	/* Validation */
+
 	/* JPA */
 	@Column(name = "date", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date date;
 
 	/* JPA */
 	@Column(name = "departure", nullable = false)
+	@Temporal(TemporalType.TIME)
 	private Date departure;
 }

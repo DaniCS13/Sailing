@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
  */
 
 @Table(name = "actions")
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 /* Lombok */
 @Data
 @RequiredArgsConstructor
@@ -58,7 +61,7 @@ public abstract class Action implements Serializable {
 	@NonNull
 	/* JPA */
 	@Enumerated(EnumType.STRING) // Guarda el tipo como un string en la base de datos
-	@Column(name = "type", nullable = false, length = 31)
+	@Column(name = "type", insertable = false, updatable = false, nullable = false, length = 31)
 	protected Type type;
 
 	/* Validation */

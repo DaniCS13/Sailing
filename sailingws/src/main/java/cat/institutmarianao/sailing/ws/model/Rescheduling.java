@@ -3,16 +3,20 @@ package cat.institutmarianao.sailing.ws.model;
 import java.util.Date;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /* Validation */
+@NotBlank
 /* JPA annotations */
 @Entity
-@Table(name = "actions")
+@DiscriminatorValue(Action.RESCHEDULING)
 /* Lombok */
 @Data
 @NoArgsConstructor
@@ -23,10 +27,12 @@ public class Rescheduling extends Action {
 	/* Validation */
 	/* JPA */
 	@Column(name = "new_date")
+	@Temporal(TemporalType.DATE)
 	private Date newDate;
 
 	/* Validation */
 	/* JPA */
 	@Column(name = "new_departure")
+	@Temporal(TemporalType.TIME)
 	private Date newDeparture;
 }
