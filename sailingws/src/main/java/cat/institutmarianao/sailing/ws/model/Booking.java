@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+//cambiar
 /* Validation */
 @NotBlank
 /* JPA annotations */
