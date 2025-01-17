@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-
 /* JPA annotations */
 /* Mapping JPA Indexes */
 /* JPA Inheritance strategy is single table */
@@ -27,7 +26,7 @@ import lombok.RequiredArgsConstructor;
  * Maps different JPA objects depDONEing on his type attribute (Opening,
  * Assignment, Intervention or Close)
  */
-
+@Entity
 @Table(name = "actions")
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 /* Lombok */
