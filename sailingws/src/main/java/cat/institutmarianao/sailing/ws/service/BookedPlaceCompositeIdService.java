@@ -2,15 +2,22 @@ package cat.institutmarianao.sailing.ws.service;
 
 import java.util.List;
 
+import cat.institutmarianao.sailing.ws.model.BookedPlace;
 import cat.institutmarianao.sailing.ws.model.BookedPlaceCompositeId;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 public interface BookedPlaceCompositeIdService {
 
-	List<BookedPlaceCompositeId> findAll();
+    List<BookedPlace> findAll();
 
-	BookedPlaceCompositeId getById(@NotNull Long tripTypeId, @NotNull java.util.Date date,
-			@NotNull java.util.Date departure);
+    BookedPlace getById(@NotNull BookedPlaceCompositeId id);
 
-	boolean existsById(@NotNull Long tripTypeId, @NotNull java.util.Date date, @NotNull java.util.Date departure);
+    boolean existsById(@NotNull BookedPlaceCompositeId id);
+
+    BookedPlace save(@NotNull @Valid BookedPlace bookedPlace);
+
+    BookedPlace update(@NotNull @Valid BookedPlace bookedPlace);
+
+    void deleteById(@NotNull BookedPlaceCompositeId id);
 }

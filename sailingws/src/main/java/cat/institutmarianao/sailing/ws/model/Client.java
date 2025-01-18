@@ -37,4 +37,35 @@ public class Client extends User implements Serializable {
 	@NotNull(groups = OnUserCreate.class)
 	@Column(name = "phone")
 	protected String phone;
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getFullName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setFullName(Object fullName2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Object getPhone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setPhone(Object phone2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object getPassword() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

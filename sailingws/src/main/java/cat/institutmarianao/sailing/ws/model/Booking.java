@@ -20,4 +20,14 @@ public class Booking extends Action {
 	public Booking() {
 		super(Type.BOOKING);
 	}
+
+	public Object getSomeField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setSomeField(Object someField) {
+		// TODO Auto-generated method stub
+		
+	}
 }

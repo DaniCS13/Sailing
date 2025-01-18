@@ -22,17 +22,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Rescheduling extends Action {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/* Validation */
-	/* JPA */
-	@Column(name = "new_date")
-	@Temporal(TemporalType.DATE)
-	private Date newDate;
+    /* Validation */
+    /* JPA */
+    @Column(name = "new_date")
+    @Temporal(TemporalType.DATE)
+    private Date newDate;
 
-	/* Validation */
-	/* JPA */
-	@Column(name = "new_departure")
-	@Temporal(TemporalType.TIME)
-	private Date newDeparture;
+    /* Validation */
+    /* JPA */
+    @Column(name = "new_departure")
+    @Temporal(TemporalType.TIME)
+    private Date newDeparture;
+
+    // Constructor que pasa Action.Type.RESCHEDULING al constructor de Action
+    public Rescheduling() {
+        super(Type.RESCHEDULING); // Llama al constructor de Action con Type.RESCHEDULING
+    }
 }

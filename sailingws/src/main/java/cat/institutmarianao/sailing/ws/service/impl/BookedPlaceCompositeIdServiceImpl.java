@@ -10,48 +10,49 @@ import cat.institutmarianao.sailing.ws.model.BookedPlace;
 import cat.institutmarianao.sailing.ws.model.BookedPlaceCompositeId;
 import cat.institutmarianao.sailing.ws.repository.BookedPlaceRepository;
 import cat.institutmarianao.sailing.ws.service.BookedPlaceCompositeIdService;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Service
 public class BookedPlaceCompositeIdServiceImpl implements BookedPlaceCompositeIdService {
 
-	@Autowired
-	private BookedPlaceRepository bookedPlaceRepository;
+    @Autowired
+    private BookedPlaceRepository bookedPlaceRepository;
 
-	@Override
-	public List<BookedPlaceCompositeId> findAll() {
-		// Convertimos la lista de BookedPlace en una lista de BookedPlaceCompositeId
-		return bookedPlaceRepository.findAll().stream().map(BookedPlace::getId) // 'getId' retorna la clave compuesta
-																				// (BookedPlaceCompositeId)
-				.collect(Collectors.toList());
-	}
+    @Override
+    public List<BookedPlace> findAll() {
+        return bookedPlaceRepository.findAll();
+    }
 
-	@Override
-	public BookedPlaceCompositeId getById(@NotNull Long tripTypeId, @NotNull java.util.Date date,
-			@NotNull java.util.Date departure) {
-		// Creamos el BookedPlaceCompositeId con los parámetros proporcionados
-		BookedPlaceCompositeId id = new BookedPlaceCompositeId();
-		id.setTripTypeId(tripTypeId);
-		id.setDate(date);
-		id.setDeparture(departure);
+    @Override
+    public BookedPlace getById(@NotNull BookedPlaceCompositeId id) {  // Usar BookedPlaceCompositeId
+        return bookedPlaceRepository.findById(id).orElseThrow(() -> new RuntimeException("BookedPlace not found"));
+    }
 
-		// Usamos el repositorio de BookedPlace para buscar por la clave compuesta
-		return bookedPlaceRepository.findById(id).map(BookedPlace::getId) // Devolvemos la clave compuesta
-																			// (BookedPlaceCompositeId)
-				.orElseThrow(() -> new NotFoundException("BookedPlace not found"));
-	}
+    @Override
+    public boolean existsById(@NotNull BookedPlaceCompositeId id) {  // Usar BookedPlaceCompositeId
+        return bookedPlaceRepository.existsById(id);
+    }
 
-	@Override
-	public boolean existsById(@NotNull Long tripTypeId, @NotNull java.util.Date date,
-			@NotNull java.util.Date departure) {
-		// Creamos el BookedPlaceCompositeId con los parámetros proporcionados
-		BookedPlaceCompositeId id = new BookedPlaceCompositeId();
-		id.setTripTypeId(tripTypeId);
-		id.setDate(date);
-		id.setDeparture(departure);
+    @Override
+    public BookedPlace save(@NotNull @Valid BookedPlace bookedPlace) {
+        return bookedPlaceRepository.saveAndFlush(bookedPlace);
+    }
 
-		// Usamos el repositorio de BookedPlace para verificar si existe la clave
-		// compuesta
-		return bookedPlaceRepository.existsById(id);
-	}
+    @Override
+    public BookedPlace update(@NotNull @Valid BookedPlace bookedPlace) {
+        BookedPlace dbBookedPlace = getById(bookedPlace.getId());  // Usar el id correcto
+
+        // Actualiza los campos necesarios
+        if (bookedPlace.getSomeField() != null) {
+            dbBookedPlace.setSomeField(bookedPlace.getSomeField());
+        }
+
+        return bookedPlaceRepository.saveAndFlush(dbBookedPlace);
+    }
+
+    @Override
+    public void deleteById(@NotNull BookedPlaceCompositeId id) {  // Usar BookedPlaceCompositeId
+        bookedPlaceRepository.deleteById(id);
+    }
 }
