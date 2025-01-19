@@ -20,67 +20,69 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /* JPA annotations */
-/* Mapping JPA Indexes */
-/* JPA Inheritance strategy is single table */
-/*
- * Maps different JPA objects depDONEing on his type attribute (Opening,
- * Assignment, Intervention or Close)
- */
 @Entity
 @Table(name = "actions")
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 /* Lombok */
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Action implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	/* Values for type - MUST be constants */
-	public static final String BOOKING = "BOOKING";
-	public static final String RESCHEDULING = "RESCHEDULING";
-	public static final String CANCELLATION = "CANCELLATION";
-	public static final String DONE = "DONE";
+    public static final String BOOKING = "BOOKING";
+    public static final String RESCHEDULING = "RESCHEDULING";
+    public static final String CANCELLATION = "CANCELLATION";
+    public static final String DONE = "DONE";
 
-	public enum Type {
-		BOOKING, RESCHEDULING, CANCELLATION, DONE
-	}
+    public enum Type {
+        BOOKING, RESCHEDULING, CANCELLATION, DONE
+    }
 
-	/* Validation */
-	/* JPA */
-	@Id
-	@Column(name = "id", nullable = false, unique = true)
-	/* Lombok */
-	@EqualsAndHashCode.Include
-	protected Long id;
+    /* Validation */
+    /* JPA */
+    @Id
+    @Column(name = "id", nullable = false, unique = true)
+    @EqualsAndHashCode.Include
+    protected Long id;
 
-	/* Validation */
-	/* Lombok */
-	@NonNull
-	/* JPA */
-	@Enumerated(EnumType.STRING) // Guarda el tipo como un string en la base de datos
-	@Column(name = "type", insertable = false, updatable = false, nullable = false, length = 31)
-	protected Type type;
+    /* Validation */
+    @NonNull
+    /* JPA */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", insertable = false, updatable = false, nullable = false, length = 31)
+    protected Type type;
 
-	/* Validation */
-	/* JPA */
-	@ManyToOne
-	@JoinColumn(name = "performer_username", nullable = false)
-	protected User performer;
+    /* Validation */
+    /* JPA */
+    @ManyToOne
+    @JoinColumn(name = "performer_username", nullable = false)
+    protected User performer;
 
-	/* JPA */
-	@Column(name = "date", nullable = false)
-	protected Date date = new Date();
+    /* JPA */
+    @Column(name = "date", nullable = false)
+    protected Date date = new Date();
 
-	/* Validation */
-	/* JPA */
-	@ManyToOne
-	@JoinColumn(name = "trip_id", nullable = false)
-	/* JSON */
-	protected Trip trip;
+    /* Validation */
+    /* JPA */
+    @ManyToOne
+    @JoinColumn(name = "trip_id", nullable = false)
+    protected Trip trip;
 
-	@Column(name = "comments", length = 255)
-	private String comments;
+    @Column(name = "comments", length = 255)
+    private String comments;
+
+    // Constructor con Action.Type
+    public Action(Type type) {
+        this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -11,6 +11,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -36,4 +37,19 @@ public class BookedPlace implements Serializable {
 
 	@Column(name = "booked_places")
 	private long bookedPlaces;
+
+	public @NotNull BookedPlaceCompositeId getId() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public Object getSomeField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setSomeField(Object someField) {
+		// TODO Auto-generated method stub
+		
+	}
 }

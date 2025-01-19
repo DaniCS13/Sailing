@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -60,4 +61,13 @@ public abstract class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role", insertable = false, updatable = false, nullable = false)
 	protected Role role;
+
+	abstract @NotBlank
+	public String getUsername();
+
+	public abstract String getPassword();
+
+	public void setPassword(Object password2) {
+		
+	}
 }
